@@ -24,6 +24,7 @@ const SingleSelectionDropDown = (props) => {
   return (
     <div className="single-selection-dropdown">
       <div className="header">SingleSelectionDropDown</div>
+      <div className="input-box-container">
       <input
         type="text"
         value={selectedOption}
@@ -32,6 +33,13 @@ const SingleSelectionDropDown = (props) => {
         onChange={handleInputChange}
         className="custom-input"
       />
+     <span role="img" aria-label="Search Icon" className="search-icon">
+    { isOpen? "🔍":"▼"}
+      </span>
+      <span className="sorting-icon" title="Sorting">
+      ⇅
+      </span>
+      </div>
       {isOpen && (
         <div className="dropdown-list-container">
           {filteredOptions.map((option, index) => (
