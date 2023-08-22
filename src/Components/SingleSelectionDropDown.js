@@ -30,6 +30,7 @@ const SingleSelectionDropDown = (props) => {
         placeholder="Select an option"
         onClick={() => setIsOpen(!isOpen)}
         onChange={handleInputChange}
+        className="custom-input"
       />
       {isOpen && (
         <div className="dropdown-list-container">
@@ -37,7 +38,7 @@ const SingleSelectionDropDown = (props) => {
             <div
               key={index}
               onClick={() => handleSelectOption(option)}
-              className={option === selectedOption ? "selected-option" : ""}
+              className={`dropdown-list-label${option.label === selectedOption ? " selected-option" : ""}`}
             >
               {option.label}
             </div>
