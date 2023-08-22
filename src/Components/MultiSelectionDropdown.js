@@ -20,8 +20,17 @@ const  MultiSelectionDropdown=(props)=> {
     const handleSelectOption = (option) => {
         if (!selectedOption.includes(option.label)) {
           setSelectedOption([...selectedOption, option.label]);
+        }else{
+            handleRemoveOption(option)
         }
         setIsOpen(false);
+      };
+
+      const handleRemoveOption = (option) => {
+        const updatedOptions = selectedOption.filter(
+          (selected) => selected !== option.label
+        );
+        setSelectedOption(updatedOptions);
       };
   
     const handleSorting = () => {
