@@ -60,6 +60,7 @@
 }
 .dropdown-list-label {
   padding: 8px 12px;
+  margin: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
 }
