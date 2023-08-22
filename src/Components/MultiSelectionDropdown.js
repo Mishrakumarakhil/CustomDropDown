@@ -2,33 +2,40 @@ import React, { useCallback, useState } from "react";
 import { countryList } from '../utils'
 
 const  MultiSelectionDropdown=(props)=> {
-    const [selectedOption, setSelectedOption] = useState("");
+    const [selectedOption, setSelectedOption] = useState([]);
     const [filteredOptions, setFilteredOptions] = useState(countryList);
     const [isOpen, setIsOpen] = useState(false);
     const [sortBy, setSortBy] = useState("asc");
+    const [multiTextVal,setMultiTextVal]=useState("")
   
-    const handleInputChange = useCallback((e) => {
-      const inputValue = e.target.value;
-      setSelectedOption(inputValue);
-      setIsOpen(true)
-      const filtered = countryList.filter((option) =>
-        option.label.toLowerCase().includes(inputValue.toLowerCase())
-      );
-      setFilteredOptions(filtered);
-    }, []);
 
-    const handleSelectOption = (option) => {
-        if (!selectedOption.includes(option.label)) {
-          setSelectedOption([...selectedOption, option.label]);
-        }else{
-            handleRemoveOption(option)
-        }
-        setIsOpen(false);
+    const handleInputChange = useCallback((e) => {
+        const inputValue = e.target.value;
+        setMultiTextVal(e.target.value)
+        setIsOpen(true); 
+        const filtered = countryList.filter(
+          (option) =>
+            option.label.toLowerCase().includes(inputValue.toLowerCase()) &&
+            !selectedOption.includes(option.label)
+        );
+        setFilteredOptions(filtered);
+      }, [selectedOption]);
+    
+      const handleSelectOption = (option) => {
+        const updatedSelected = [...selectedOption, option.label];
+        setSelectedOption(updatedSelected);
+        setFilteredOptions(countryList);
+        setIsOpen(false); 
+        setMultiTextVal("")
       };
 
+
+
       const handleRemoveOption = (option) => {
+     
+        let options=option[0]?option[0]:option;
         const updatedOptions = selectedOption.filter(
-          (selected) => selected !== option.label
+          (selected) => selected !== options.label 
         );
         setSelectedOption(updatedOptions);
       };
@@ -45,15 +52,48 @@ const  MultiSelectionDropdown=(props)=> {
   
       setFilteredOptions(sortedData);
     };
+
+
+    const renderSelectedOptions = () => {
+        const visibleOptions = selectedOption.slice(0, 2);
+        const remainingOptionsCount = selectedOption.length - 2;
+        return (
+          <div className="selected-options">
+            {visibleOptions.map((selected, index) => (
+              <span key={index} className="selected-option-label">
+                {selected}{' '}
+                <span
+                  onClick={() => handleRemoveOption(countryList.filter((option) =>
+                    option.label.toLowerCase().includes(selected.toLowerCase())
+                  ))}
+                  className="remove-option"
+                >
+                  &#10006;
+                </span>
+              </span>
+            ))}
+            {remainingOptionsCount > 0 && (
+              <span
+                className="more-options"
+                onClick={() => setIsOpen(!isOpen)}
+              >
+                +{remainingOptionsCount} more
+              </span>
+            )}
+          </div>
+        );
+      };
+
+
     return (
       <div className="single-selection-dropdown">
         <div className="header">MultiSelectionDropdown</div>
         <div className="input-box-container">
-      
+        {renderSelectedOptions()}
           <input
             type="text"
-             value={selectedOption}
-            placeholder="Select an option"
+             value={`${multiTextVal}`}
+            placeholder={`${selectedOption.length==0?"Select an option":""}`}
             onClick={() => setIsOpen(!isOpen)}
             onChange={handleInputChange}
             className="custom-input"

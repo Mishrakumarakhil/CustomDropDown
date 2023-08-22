@@ -71,3 +71,21 @@
 .dropdown-list-label:hover {
   background-color: #c2e8f3;
 }
+.selected-options{
+  position: absolute;
+ left:2px; /* Adjust the position as needed */
+  top: 50%;
+  margin: 5px;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 14px;
+
+}
+
+.selected-option-label{
+  background-color: #a7b8ca;
+  color: #000000;
+  margin: 5px;
+  padding: 4px;
+
+}
