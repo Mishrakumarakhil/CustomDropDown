@@ -46,7 +46,7 @@ const SingleSelectionDropDown = (props) => {
           onChange={handleInputChange}
           className="custom-input"
         />
-        <span role="img" aria-label="Search Icon" className="search-icon">
+        <span role="img" aria-label="Search Icon" className="search-icon"  onClick={() => setIsOpen(!isOpen)}>
           {isOpen ? "🔍" : "▼"}
         </span>
         {isOpen && (
