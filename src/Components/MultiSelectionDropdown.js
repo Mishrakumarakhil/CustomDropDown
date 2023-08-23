@@ -9,14 +9,17 @@ const MultiSelectionDropdown = () => {
   const [sortBy, setSortBy] = useState("asc");
   const [multiTextVal, setMultiTextVal] = useState("");
 
+
+
+
   const handleInputChange = useCallback((e) => {
     const inputValue = e.target.value;
     setMultiTextVal(inputValue);
     setIsOpen(true);
     const filteredOptions = countryList.filter(
       (option) =>
-        option.label.toLowerCase().includes(inputValue.toLowerCase()) &&
-        !selectedOption.includes(option.label)
+        option.label.toLowerCase().includes(inputValue.toLowerCase()) 
+      
     );
     setFilteredOptions(filteredOptions);
   }, [selectedOption, countryList]);
@@ -37,7 +40,6 @@ const MultiSelectionDropdown = () => {
   };
 
   const handleRemoveOption = (option) => {
-     
     let options=option[0]?option[0]:option;
     const updatedOptions = selectedOption.filter(
       (selected) => selected !== options.label 
@@ -97,6 +99,7 @@ const MultiSelectionDropdown = () => {
         <input
           type="text"
           value={multiTextVal}
+  
           placeholder={
             selectedOption.length === 0 ? "Select an option" : ""
           }
