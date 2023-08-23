@@ -46,7 +46,12 @@ const SingleSelectionDropDown = (props) => {
           onChange={handleInputChange}
           className="custom-input"
         />
-        <span role="img" aria-label="Search Icon" className="search-icon"  onClick={() => setIsOpen(!isOpen)}>
+        <span
+          role="img"
+          aria-label="Search Icon"
+          className="search-icon"
+          onClick={() => setIsOpen(!isOpen)}
+        >
           {isOpen ? "🔍" : "▼"}
         </span>
         {isOpen && (
@@ -61,17 +66,21 @@ const SingleSelectionDropDown = (props) => {
       </div>
       {isOpen && (
         <div className="dropdown-list-container">
-          {filteredOptions.length>0 ?filteredOptions.map((option, index) => (
-            <div
-              key={index}
-              onClick={() => handleSelectOption(option)}
-              className={`dropdown-list-label${
-                option.label === selectedOption ? " selected-option" : ""
-              }`}
-            >
-              {option.label}
-            </div>
-          )):<div>No Data Found</div>}
+          {filteredOptions.length > 0 ? (
+            filteredOptions.map((option, index) => (
+              <div
+                key={index}
+                onClick={() => handleSelectOption(option)}
+                className={`dropdown-list-label${
+                  option.label === selectedOption ? " selected-option" : ""
+                }`}
+              >
+                {option.label}
+              </div>
+            ))
+          ) : (
+            <div>No Data Found</div>
+          )}
         </div>
       )}
     </div>
